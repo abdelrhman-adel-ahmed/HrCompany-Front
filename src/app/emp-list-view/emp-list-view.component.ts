@@ -27,7 +27,7 @@ export class EmpListViewComponent implements OnInit {
   }
   private getEmployeeData() {
     this.empService.getEmployeeDate(this.searchDto).subscribe((data: EmployeeDTO[]) => {
-      if(data.length == 0){
+      if(this.searchDto.skip != 0 && data.length == 0){
         this.onPageSelect("prev");
       }
       this.employeeList = data;
