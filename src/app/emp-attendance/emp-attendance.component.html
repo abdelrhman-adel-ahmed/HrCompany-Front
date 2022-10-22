@@ -1,0 +1,22 @@
+<div>
+<table class="table table-striped">
+    <thead>
+        <tr >
+            <th class="text-center">ID</th>
+            <th class="text-center">Employee Name</th>
+            <th class="text-center">SignIn Time</th>
+            <th class="text-center">SignOut Time</th>
+            <th class="text-center">Total Working hours</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let employee of employeeAttendanceList">
+        <tr [style.background-color]="employee.totalHours < 8 ? '#FF7F50' : ''" style="cursor: pointer;">
+            <th class="text-center">{{employee.id}}</th>
+            <td class="text-center">{{employee.employee.employeeName}}</td>
+            <td class="text-center">{{employee.signInTime}}</td>
+            <td class="text-center">{{employee.signOutTime}}</td>
+            <td class="text-center">{{employee.totalHours}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>

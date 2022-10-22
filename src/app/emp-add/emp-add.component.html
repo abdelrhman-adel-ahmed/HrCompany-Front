@@ -1,0 +1,69 @@
+<form (ngSubmit)="onSubmit()" #addEmpForm="ngForm" novalidate>
+
+  <div class="form-group">
+    <label for="empname">Employee Name</label>
+    <input name="empName" #name="ngModel" required [(ngModel)]="createdEmployee.employeeName" type="text"
+    class="form-control" id="empname" placeholder="Enter username"
+    [class.is-invalid]="name.invalid && name.touched">
+  <small *ngIf="name.invalid && name.touched" class="text-danger">Name is Required</small>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input name="empMail" #email="ngModel" required [(ngModel)]="createdEmployee.employeeEmailAddress"
+    type="email"class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+    placeholder="Enter email" [class.is-invalid]="email.invalid && email.touched" [email]="true">
+    <div *ngIf="email.errors && (email.invalid && email.touched)" >
+      <small *ngIf="email.errors?.['required']" class="text-danger">email number is Required</small>
+      <small *ngIf="email.errors?.['email']" class="text-danger">email number is invalid</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="empPhone">Employee PhoneNumber</label>
+    <input name="empPhone" #phone="ngModel" required pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" [(ngModel)]="createdEmployee.employeeMobile" type="text"
+    class="form-control" id="empPhone" placeholder="Enter PhoneNumber"
+    [class.is-invalid]="phone.invalid && phone.touched">
+    <div *ngIf="phone.errors && (phone.invalid && phone.touched)" >
+      <small *ngIf="phone.errors?.['required']" class="text-danger">Phone number is Required</small>
+      <small *ngIf="phone.errors?.['pattern']" class="text-danger">Phone number is invalid</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="empaddress">Employee Address</label>
+    <input name="empAddress" required [(ngModel)]="createdEmployee.employeeAddress" type="text"
+    class="form-control" #address="ngModel" id="empaddress" placeholder="Employee Address"
+    [class.is-invalid]="address.invalid && address.touched">
+    <small *ngIf="address.invalid && address.touched" class="text-danger">Address is Required</small>
+  </div>
+
+  <div class="form-group">
+    <label for="empDob">Employee BirthDate</label>
+    <input #date="ngModel" name="empBirthDate" required [(ngModel)]="createdEmployee.employeeBirthDate" type="date"
+    class="form-control" id="empDob" placeholder="Employee BirthDate" >
+    <small *ngIf="date.invalid && date.touched" class="text-danger">date is Required</small>
+
+  </div>
+
+  <div class="form-check">
+    <input name="empIsManager" [(ngModel)]="createdEmployee.isManager"  type="checkbox" class="form-check-input" id="ismanager">
+    <label class="form-check-label" for="ismanager">IsManger</label>
+  </div>
+<br>
+  <div *ngIf="!addEmpForm.value.empIsManager" class="form-group">
+    <p>Choose Manager: </p>
+    <select (blur)="validateManagerSelect(empManager.value)" (select)="validateManagerSelect(empManager.value)" required
+    #empManager="ngModel"
+    name="empManager"
+    [(ngModel)]="createdEmployee.managerId" class="custom-select" required
+    [class.is-invalid]="managerSelectHasError && empManager.touched">
+      <option value="default" selected>Select a manager</option>
+      <option *ngFor="let manager of managersList" [value]="manager.employeeId">
+        {{manager.employeeName}}
+      </option>
+    </select>
+    <small *ngIf="managerSelectHasError && empManager.touched" class="text-danger">Please Choose a Manager</small>
+  </div>
+  <button [disabled]="addEmpForm.form.invalid" type="submit" class="btn btn-primary">Submit</button>
+</form>

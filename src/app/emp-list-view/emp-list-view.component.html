@@ -1,0 +1,45 @@
+<div>
+  <form #f="ngForm" (ngSubmit)="searchClick(f)" novalidate>
+    <div class="input-group">
+      <input name="empName" ngModel type="search" class="form-control rounded" placeholder="Search" aria-label="Search"/>
+      <button type="submit" class="btn btn-outline-primary">search</button>
+    </div>
+  </form>
+<div>
+  <div class="row">
+    <div class="col-xs-12 offset-md-4">
+        <button class="btn btn-success btn-lg" (click)="addEmployee()">Add Employee</button>
+    </div>
+</div>
+  <table class="table table-striped">
+      <thead>
+          <tr >
+              <th class="text-center">ID</th>
+              <th class="text-center">Name</th>
+              <th class="text-center">Address</th>
+              <th class="text-center">Email</th>
+              <th class="text-center">ManagerName</th>
+          </tr>
+      </thead>
+      <tbody *ngFor="let employee of employeeList">
+          <tr style="cursor: pointer;">
+              <th class="text-center">{{employee.employeeId}}</th>
+              <td class="text-center">{{employee.employeeName}}</td>
+              <td class="text-center">{{employee.employeeAddress}}</td>
+              <td class="text-center">{{employee.employeeEmailAddress}}</td>
+              <td class="text-center">{{employee?.manager?.employeeName}}</td>
+          </tr>
+      </tbody>
+  </table>
+
+  <br>
+  <div class="row">
+    <button class="btn btn-dark offset-1 col-4" type="button" (click)="onPageSelect('prev')">
+        Prev Page
+    </button>
+    <button class="btn btn-dark offset-2 col-4" type="button" (click)="onPageSelect('next')">
+        Next Page
+    </button>
+</div>
+</div>
+</div>
